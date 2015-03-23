@@ -18,13 +18,13 @@
 
 		$(document).ready(function () {
 
-			var displayPhotos = function (photos) {
-				if(photos.length > 0){
+			var displayPhotos = function (photos) {  // function to display photos.
+				if(photos.length > 0){  // simple if-else statement
 					$('#photo-list').html('');
 				}else{
 					$('#photo-list').html('No Photos Found');
 				}
-				for (var index in photos) {
+				for (var index in photos) {  // loop photos array
 					var photoObj = photos[index];
 					var url = 'https://farm' + photoObj.farm + '.staticflickr.com/' + photoObj.server + '/' + photoObj.id + '_' + photoObj.secret + '.jpg'
 					var img = $('<img/>').attr('src', url).width(250);
@@ -32,20 +32,20 @@
 				}
 			}
 
-			$('body').on('click', '#search-btn', function () {
-				var val = $('#search').val();
-				var search_url = base_url + "&text=" + val;
+			$('body').on('click', '#search-btn', function () { // onclick handler
+				var val = $('#search').val(); //get value from search form
+				var search_url = base_url + "&text=" + val; //append to search_url
 				var photos = [];
 
-				$('#photo-list').html('Searching');
+				$('#photo-list').html('Searching'); // while searching 
 
-				$.ajax({
+				$.ajax({ //ajax call to flicker server 
 					url: search_url,
-					dateType: 'json',
-					crossDomain: true,
+					dateType: 'json',  // expect JSON file back
+					crossDomain: true, // title says it all
 					success: function (response) {
-						photos = response.photos.photo;
-						displayPhotos(photos);
+						photos = response.photos.photo; // all photos in Array(photos). 
+						displayPhotos(photos); // call displayPhotos Function.
 					},
 					error: function (response) {
 						console.error(response);
